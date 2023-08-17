@@ -37,7 +37,7 @@ app.get("/",(req,res)=>{
 });
 
 app.post("/login",(req,res)=>{
-    res.cookie("token","amin",{
+    res.cookie("token","iamin",{
 httpOnly:true,expires:new Date(Date.now()+60*1000)
     });
      res.redirect("/");
