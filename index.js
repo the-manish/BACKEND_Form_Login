@@ -1,6 +1,7 @@
 import express from "express";
 import path from "path";
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
 
 mongoose
 .connect("mongodb://127.0.0.1:27017",{
@@ -23,13 +24,24 @@ const users=[];
 //Using Middlewares
 app.use(express.static(path.join(path.resolve(),"public")));
 app.use(express.urlencoded({ extended:true}));
-app.set("view engine","ejs");
+app.use(cookieParser());
 
 //Setting up View Engine
+app.set("view engine","ejs");
+
+
 app.get("/",(req,res)=>{
-    res.render("index.ejs");
+
+    console.log(req.cookies);
+    res.render("login.ejs");
 });
 
+app.post("/login",(req,res)=>{
+    res.cookie("token","amin",{
+httpOnly:true,expires:new Date(Date.now()+60*1000)
+    });
+    res.redirect("/");
+})
 /*app.get("/add",(req,res)=>{
  Messge.create({ name:"Manish", email: "manishkumartgo@gmail.com"}).then(() => {
 res.send("Nice");
