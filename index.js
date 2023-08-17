@@ -40,7 +40,7 @@ app.post("/login",(req,res)=>{
     res.cookie("token","amin",{
 httpOnly:true,expires:new Date(Date.now()+60*1000)
     });
-    res.redirect("/");
+     res.redirect("/");
 })
 /*app.get("/add",(req,res)=>{
  Messge.create({ name:"Manish", email: "manishkumartgo@gmail.com"}).then(() => {
