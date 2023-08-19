@@ -29,10 +29,33 @@ app.use(cookieParser());
 //Setting up View Engine
 app.set("view engine","ejs");
 
+const isAuthenticated=(req,res,next)=>{
+    const {token}=req.cookies;
 
+    if(token){
+       // res.render("logout");
+       next()
+      }
+      else{
+       res.render("login");
+      }
+}
+
+app.get("/",isAuthenticated,(req,res,)=>{
+    res.render("logout");
+});
 app.get("/",(req,res)=>{
 
-    console.log(req.cookies);
+   // console.log(req.cookies.token);
+
+   const {token}=req.cookies;
+
+   if(token){
+     res.render("logout");
+   }
+   else{
+    res.render("login");
+   }
     res.render("login.ejs");
 });
 
@@ -48,6 +71,14 @@ res.send("Nice");
  });   
 });
 */
+
+app.get("/logout",(req,res)=>{
+    res.cookie("token",null,{
+httpOnly:true,expires:new Date(Date.now()),
+    });
+     res.redirect("/");
+})
+
 app.get("/success",(req,res)=>{
     res.render("success");
 });
