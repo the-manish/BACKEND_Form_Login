@@ -10,12 +10,12 @@ mongoose
 .then(()=>console.log("Database Connected"))
 .catch((e)=>console.log(e));
 
-const messageSchema =new mongoose.Schema({
+const userSchema =new mongoose.Schema({
     name:String,
     email:String,
 });
 
-const Messge= mongoose.model("Message",messageSchema)
+const User= mongoose.model("User",userSchema)
 
 const app = express();
 
@@ -79,20 +79,9 @@ httpOnly:true,expires:new Date(Date.now()),
      res.redirect("/");
 })
 
-app.get("/success",(req,res)=>{
-    res.render("success");
-});
-app.post("/contact",async(req,res)=>{
- 
- await Messge.create({name:req.body.name,email:req.body.email});
-res.redirect("/success");
-});
 
-app.get("/users",(req,res)=>{
-res.json({
-    users,
-})
-});
+
+
 app.listen(5000,()=>{
     console.log("Server is working");
 });
