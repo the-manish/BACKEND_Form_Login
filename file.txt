@@ -1,0 +1,5 @@
+npm run dev
+npm run start
+npm i jsonwebtoken
+
+token->jwt.io (website)
