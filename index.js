@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
+import jwt from "jsonwebtoken";
 
 mongoose
 .connect("mongodb://127.0.0.1:27017",{
@@ -29,17 +30,23 @@ app.use(cookieParser());
 //Setting up View Engine
 app.set("view engine","ejs");
 
-const isAuthenticated=(req,res,next)=>{
+const isAuthenticated=async(req,res,next)=>{
     const {token}=req.cookies;
 
     if(token){
        // res.render("logout");
+    const decoded=  jwt.verify(token,"ygygugsgaggssvaig");
+     console.log(decoded);
+req.user= await User.findById(decoded._id);
+
        next()
       }
       else{
        res.render("login");
       }
-}
+};
+
+
 
 app.get("/",isAuthenticated,(req,res,)=>{
     res.render("logout");
@@ -59,8 +66,17 @@ app.get("/",(req,res)=>{
     res.render("login.ejs");
 });
 
-app.post("/login",(req,res)=>{
-    res.cookie("token","iamin",{
+app.post("/login",async(req,res)=>{
+
+    const{name,email}=req.body;
+       const user= await User.create({
+        name,
+        email,
+    });
+    const token=jwt.sign({_id:user._id},"ygygugsgaggssvaig");
+   // console.log(token);
+
+    res.cookie("token",token,{
 httpOnly:true,expires:new Date(Date.now()+60*1000)
     });
      res.redirect("/");
