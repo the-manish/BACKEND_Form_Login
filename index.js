@@ -46,11 +46,14 @@ req.user= await User.findById(decoded._id);
       }
 };
 
-
-
-app.get("/",isAuthenticated,(req,res,)=>{
-    res.render("logout");
+app.get("/",isAuthenticated,(req,res)=>{
+    console.log(req.user);
+res.render("logout",{name:req.user.name});
 });
+
+/*app.get("/",isAuthenticated,(req,res,)=>{
+    res.render("logout");
+});*/
 app.get("/",(req,res)=>{
 
    // console.log(req.cookies.token);
