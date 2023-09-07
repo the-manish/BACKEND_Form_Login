@@ -14,6 +14,7 @@ mongoose
 const userSchema =new mongoose.Schema({
     name:String,
     email:String,
+    password:String,
 });
 
 const User= mongoose.model("User",userSchema)
@@ -50,6 +51,14 @@ app.get("/",isAuthenticated,(req,res)=>{
     console.log(req.user);
 res.render("logout",{name:req.user.name});
 });
+app.get("/login",(req,res)=>{
+res.render("login");
+
+})
+app.get("/register",(req,res)=>{
+res.render("register");
+});
+
 
 /*app.get("/",isAuthenticated,(req,res,)=>{
     res.render("logout");
@@ -66,15 +75,39 @@ app.get("/",(req,res)=>{
    else{
     res.render("login");
    }
-    res.render("login.ejs");
+   // res.render("login.ejs");
+   res.redirect("/login")
 });
 
 app.post("/login",async(req,res)=>{
+    const {email,password}=req.body;
+    let user=await User.FindOne({email});
 
-    const{name,email}=req.body;
-       const user= await User.create({
+    if (!user)return res.redirect("/register");
+
+    const isMatch=user.password===password;
+    if(!isMatch)return res.render("login",{massage:"Incorrect Password"});
+    const token=jwt.sign({_id:user._id},"ygygugsgaggssvaig");
+    // console.log(token);
+ 
+     res.cookie("token",token,{
+ httpOnly:true,expires:new Date(Date.now()+60*1000)
+     });
+      res.redirect("/");
+});
+app.post("/register",async(req,res)=>{
+
+    const{name,email,password}=req.body;
+
+      let user= await User.findOne({email});
+
+       if(user){
+       return res.redirect("/login");
+       }
+        user =await User.create({
         name,
         email,
+        password,
     });
     const token=jwt.sign({_id:user._id},"ygygugsgaggssvaig");
    // console.log(token);
