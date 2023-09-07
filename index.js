@@ -81,17 +81,18 @@ app.get("/",(req,res)=>{
 
 app.post("/login",async(req,res)=>{
     const {email,password}=req.body;
-    let user=await User.FindOne({email});
+    let user=await User.findOne({email});
 
-    if (!user)return res.redirect("/register");
+    if (!user) return res.redirect("/register");
 
     const isMatch=user.password===password;
-    if(!isMatch)return res.render("login",{massage:"Incorrect Password"});
+    if(!isMatch)return res.render("login",{message:"Incorrect Password"});
     const token=jwt.sign({_id:user._id},"ygygugsgaggssvaig");
     // console.log(token);
  
      res.cookie("token",token,{
- httpOnly:true,expires:new Date(Date.now()+60*1000)
+     httpOnly:true,
+     expires:new Date(Date.now()+60*1000)
      });
       res.redirect("/");
 });
