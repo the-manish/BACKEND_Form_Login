@@ -3,6 +3,7 @@ import path from "path";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 mongoose
 .connect("mongodb://127.0.0.1:27017",{
@@ -85,7 +86,7 @@ app.post("/login",async(req,res)=>{
 
     if (!user) return res.redirect("/register");
 
-    const isMatch=user.password===password;
+    const isMatch=await bcrypt.compare(password,user.password);
     if(!isMatch)return res.render("login",{message:"Incorrect Password"});
     const token=jwt.sign({_id:user._id},"ygygugsgaggssvaig");
     // console.log(token);
@@ -105,10 +106,12 @@ app.post("/register",async(req,res)=>{
        if(user){
        return res.redirect("/login");
        }
+     const hashedPassword=await bcrypt.hash(password,10);
+
         user =await User.create({
         name,
         email,
-        password,
+        password:hashedPassword,
     });
     const token=jwt.sign({_id:user._id},"ygygugsgaggssvaig");
    // console.log(token);
