@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Startup AYUSH Portal</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+    <title>Startup Ayush portal</title>
 </head>
-
 <body>
     <header>
         <section class="head">
@@ -35,8 +31,10 @@
                 <button id="search-button" class="search-icon">&#128269;</button>
             </div>
             <div class="login">
-                <a href="login" target="_blank" class="login-link">&#128274; Login</a>
-                <a href="register" target="_blank" class="register-link">&#128100; Register</a>
+                <form action="/logout" method="get">
+                    <button type="submit">Logout</button>
+            
+                </form>
             </div>
         </section>
     </header>
@@ -162,24 +160,8 @@
             </section>
         </section>
     </main>
-    <footer id="contact">
-        <div class="left">
-            <img src="emblem.png" alt="emblem" width="60px">
-            <img src="ministry-of-ayush.png" alt="ayush" width="130px">
-        </div>
-        <div class="center-bottom">
-            <p>&copy; 2023 Your Company Name. All Rights Reserved.</p>
-        </div>
-        <div class="right">
-            <div class="contact-us">
-                <h2>Contact Us</h2>
-                <p>Email: contact@example.com</p>
-                <p>Phone: +1 (123) 456-7890</p>
-            </div>
-        </div>
-        
-    </footer>
-</body> 
-        
-
+    <footer>
+        <a href="#">Link to Top</a>
+    </footer>  
+</body>
 </html>

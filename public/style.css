@@ -57,8 +57,10 @@ section h1 {
 }
 
 header {
-    position: relative;
-    z-index: 1;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 100;
 }
 
 body {
@@ -176,4 +178,131 @@ figure {
 
 .sidebar a:hover {
     color: orange;
+}
+.about {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px 20px;
+    box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.1);
+}
+
+.about h2 {
+    font-size: 24px;
+    color: #333;
+}
+
+.about p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #555;
+}
+
+.about strong {
+    font-weight: bold;
+}
+
+.about ul {
+    margin-left: 20px;
+    color: #555;
+}
+
+.services h2 {
+    font-size: 26px;
+    text-align: center;
+    margin: 20px;
+    margin-bottom: 70px;
+    color: #333;
+}
+
+/* Style for the entire services section */
+.services {
+    text-align: center;
+    padding: 40px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the container holding the services */
+.services-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Style for individual service boxes */
+.service {
+    flex-basis: calc(33.33% - 20px);
+    background-color: #f0f0f0;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Center the service titles */
+.service strong {
+    display: block;
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.service p {
+    font-size: 14px;
+    color: #666;
+}
+
+.service:hover {
+    background-color: #e0e0e0;
+    transition: background-color 0.3s ease;
+    transform: scale(1.10);
+}
+
+@media screen and (max-width: 768px) {
+    .services-container {
+        flex-direction: column;
+    }
+    .service {
+        flex-basis: calc(100% - 20px);
+    }
+}
+
+footer {
+    background-color: #cccccc30;
+    color: #000;
+    padding: 20px;
+    display: flex; /* Use flexbox to control layout */
+    justify-content: space-between; /* Push content to the edges */
+}
+
+/* CSS for Left Side */
+.left {
+    display: flex; /* Nested flex container for images */
+    align-items: center; /* Vertically center content */
+}
+
+/* CSS for Right Side (Contact Us) */
+.right {
+    text-align: right; /* Right-align text content */
+}
+
+/* Style for Contact Us Section */
+.contact-us {
+    margin-top: 20px;
+}
+
+.contact-us h2 {
+    font-size: 18px;
+}
+
+.contact-us p {
+    font-size: 14px;
+}
+
+.center-bottom {
+    margin-top: auto;
+    text-align: center;
 }
