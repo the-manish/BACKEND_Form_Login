@@ -48,7 +48,7 @@ req.user= await User.findById(decoded._id);
       }
 };
 
-app.get("/",isAuthenticated,(req,res)=>{
+app.get("/",isAuthenticated,(req,res)=>{//
     console.log(req.user);
 res.render("logout",{name:req.user.name});
 });
@@ -56,15 +56,21 @@ app.get("/login",(req,res)=>{
 res.render("login");
 
 })
+app.get("/",(req,res)=>{
+    res.render("login");
+    });
+
 app.get("/register",(req,res)=>{
 res.render("register");
 });
 
 
+
+
 /*app.get("/",isAuthenticated,(req,res,)=>{
     res.render("logout");
 });*/
-app.get("/",(req,res)=>{
+app.get("/",(req,res)=>{//
 
    // console.log(req.cookies.token);
 
@@ -95,7 +101,7 @@ app.post("/login",async(req,res)=>{
      httpOnly:true,
      expires:new Date(Date.now()+60*1000)
      });
-      res.redirect("/");
+      res.redirect("/");//
 });
 app.post("/register",async(req,res)=>{
 
@@ -119,7 +125,7 @@ app.post("/register",async(req,res)=>{
     res.cookie("token",token,{
 httpOnly:true,expires:new Date(Date.now()+60*1000)
     });
-     res.redirect("/");
+     res.redirect("/");//
 })
 /*app.get("/add",(req,res)=>{
  Messge.create({ name:"Manish", email: "manishkumartgo@gmail.com"}).then(() => {
@@ -132,7 +138,7 @@ app.get("/logout",(req,res)=>{
     res.cookie("token",null,{
 httpOnly:true,expires:new Date(Date.now()),
     });
-     res.redirect("/");
+     res.redirect("/");//
 })
 
 
